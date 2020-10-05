@@ -6,19 +6,10 @@
 	.eabi_attribute 24, 1
 	.eabi_attribute 25, 1
 	.eabi_attribute 26, 2
-	.eabi_attribute 30, 6
+	.eabi_attribute 30, 2
 	.eabi_attribute 34, 1
 	.eabi_attribute 18, 4
 	.file	"convert.cpp"
-	.text
-	.section	.rodata
-	.align	2
-	.type	_ZStL19piecewise_construct, %object
-	.size	_ZStL19piecewise_construct, 1
-_ZStL19piecewise_construct:
-	.space	1
-	.local	_ZStL8__ioinit
-	.comm	_ZStL8__ioinit,1,4
 	.text
 	.align	2
 	.global	_Z1fi
@@ -29,21 +20,11 @@ _ZStL19piecewise_construct:
 	.type	_Z1fi, %function
 _Z1fi:
 	.fnstart
-.LFB1512:
-	@ args = 0, pretend = 0, frame = 8
-	@ frame_needed = 1, uses_anonymous_args = 0
+.LFB1534:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	str	fp, [sp, #-4]!
-	add	fp, sp, #0
-	sub	sp, sp, #12
-	str	r0, [fp, #-8]
-	ldr	r3, [fp, #-8]
-	ldr	r2, [fp, #-8]
-	mul	r3, r2, r3
-	mov	r0, r3
-	add	sp, fp, #0
-	@ sp needed
-	ldr	fp, [sp], #4
+	mul	r0, r0, r0
 	bx	lr
 	.cantunwind
 	.fnend
@@ -56,22 +37,11 @@ _Z1fi:
 	.type	_Z1gii, %function
 _Z1gii:
 	.fnstart
-.LFB1513:
-	@ args = 0, pretend = 0, frame = 8
-	@ frame_needed = 1, uses_anonymous_args = 0
+.LFB1535:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	str	fp, [sp, #-4]!
-	add	fp, sp, #0
-	sub	sp, sp, #12
-	str	r0, [fp, #-8]
-	str	r1, [fp, #-12]
-	ldr	r2, [fp, #-8]
-	ldr	r3, [fp, #-12]
-	add	r3, r2, r3
-	mov	r0, r3
-	add	sp, fp, #0
-	@ sp needed
-	ldr	fp, [sp], #4
+	add	r0, r0, r1
 	bx	lr
 	.cantunwind
 	.fnend
@@ -84,41 +54,28 @@ _Z1gii:
 	.type	_Z1gi, %function
 _Z1gi:
 	.fnstart
-.LFB1514:
-	@ args = 0, pretend = 0, frame = 16
-	@ frame_needed = 1, uses_anonymous_args = 0
+.LFB1536:
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	str	fp, [sp, #-4]!
-	add	fp, sp, #0
-	sub	sp, sp, #20
-	str	r0, [fp, #-16]
-	mov	r3, #0
-	str	r3, [fp, #-8]
+	cmp	r0, #0
+	ble	.L7
+	add	r2, r0, #1
 	mov	r3, #1
-	str	r3, [fp, #-12]
-.L7:
-	ldr	r2, [fp, #-12]
-	ldr	r3, [fp, #-16]
-	cmp	r2, r3
-	bgt	.L6
-	ldr	r2, [fp, #-8]
-	ldr	r3, [fp, #-12]
-	add	r3, r2, r3
-	str	r3, [fp, #-8]
-	ldr	r3, [fp, #-12]
-	add	r3, r3, #1
-	str	r3, [fp, #-12]
-	b	.L7
+	mov	r0, #0
 .L6:
-	ldr	r3, [fp, #-8]
-	mov	r0, r3
-	add	sp, fp, #0
-	@ sp needed
-	ldr	fp, [sp], #4
+	add	r0, r0, r3
+	add	r3, r3, #1
+	cmp	r3, r2
+	bne	.L6
+	bx	lr
+.L7:
+	mov	r0, #0
 	bx	lr
 	.cantunwind
 	.fnend
 	.size	_Z1gi, .-_Z1gi
+	.section	.text.startup,"ax",%progbits
 	.align	2
 	.global	main
 	.syntax unified
@@ -127,17 +84,11 @@ _Z1gi:
 	.type	main, %function
 main:
 	.fnstart
-.LFB1515:
+.LFB1537:
 	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
-	str	fp, [sp, #-4]!
-	add	fp, sp, #0
-	mov	r3, #0
-	mov	r0, r3
-	add	sp, fp, #0
-	@ sp needed
-	ldr	fp, [sp], #4
+	mov	r0, #0
 	bx	lr
 	.cantunwind
 	.fnend
@@ -146,71 +97,40 @@ main:
 	.syntax unified
 	.arm
 	.fpu vfp
-	.type	_Z41__static_initialization_and_destruction_0ii, %function
-_Z41__static_initialization_and_destruction_0ii:
-	.fnstart
-.LFB1996:
-	@ args = 0, pretend = 0, frame = 8
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}
-	add	fp, sp, #4
-	sub	sp, sp, #8
-	str	r0, [fp, #-8]
-	str	r1, [fp, #-12]
-	ldr	r3, [fp, #-8]
-	cmp	r3, #1
-	bne	.L13
-	ldr	r3, [fp, #-12]
-	ldr	r2, .L14
-	cmp	r3, r2
-	bne	.L13
-	ldr	r0, .L14+4
-	bl	_ZNSt8ios_base4InitC1Ev
-	ldr	r2, .L14+8
-	ldr	r1, .L14+12
-	ldr	r0, .L14+4
-	bl	__aeabi_atexit
-.L13:
-	nop
-	sub	sp, fp, #4
-	@ sp needed
-	pop	{fp, pc}
-.L15:
-	.align	2
-.L14:
-	.word	65535
-	.word	_ZStL8__ioinit
-	.word	__dso_handle
-	.word	_ZNSt8ios_base4InitD1Ev
-	.cantunwind
-	.fnend
-	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
-	.align	2
-	.syntax unified
-	.arm
-	.fpu vfp
 	.type	_GLOBAL__sub_I__Z1fi, %function
 _GLOBAL__sub_I__Z1fi:
 	.fnstart
-.LFB1997:
+.LFB2018:
 	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{fp, lr}
-	add	fp, sp, #4
-	ldr	r1, .L17
-	mov	r0, #1
-	bl	_Z41__static_initialization_and_destruction_0ii
-	pop	{fp, pc}
-.L18:
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r4, lr}
+	ldr	r4, .L13
+	mov	r0, r4
+	bl	_ZNSt8ios_base4InitC1Ev
+	mov	r0, r4
+	ldr	r2, .L13+4
+	ldr	r1, .L13+8
+	pop	{r4, lr}
+	b	__aeabi_atexit
+.L14:
 	.align	2
-.L17:
-	.word	65535
+.L13:
+	.word	.LANCHOR0
+	.word	__dso_handle
+	.word	_ZNSt8ios_base4InitD1Ev
 	.cantunwind
 	.fnend
 	.size	_GLOBAL__sub_I__Z1fi, .-_GLOBAL__sub_I__Z1fi
 	.section	.init_array,"aw"
 	.align	2
 	.word	_GLOBAL__sub_I__Z1fi
+	.bss
+	.align	2
+	.set	.LANCHOR0,. + 0
+	.type	_ZStL8__ioinit, %object
+	.size	_ZStL8__ioinit, 1
+_ZStL8__ioinit:
+	.space	1
 	.hidden	__dso_handle
 	.ident	"GCC: (Raspbian 8.3.0-6+rpi1) 8.3.0"
 	.section	.note.GNU-stack,"",%progbits

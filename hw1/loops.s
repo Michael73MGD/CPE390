@@ -1,7 +1,7 @@
 @Michael Dasaro
 .global _Z8sumCubesii
 _Z8sumCubesii:
-	mov r2, #0 @r2 will be the sum
+	mov r2, #0 	@r2 will be the sum
 1:
 	mul r3, r0, r0	@make r3 r0 squared
 	mul r3, r3, r0 	@now r3 is r0 cubed

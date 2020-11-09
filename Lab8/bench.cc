@@ -97,6 +97,32 @@ uint32_t b7(uint32_t n) {
 }
 
 
+// double precision adding
+uint32_t b8(uint32_t n) {
+	double sum = 0;
+	for (double i = 1; i <= n; i++)
+		sum += i;
+	return uint32_t(sum);
+}
+
+// double precision multiply
+uint32_t b9(uint32_t n) {
+	double prod = 1;
+	for (double i = 0.999; n > 0; n--, i += 0.00001)
+		prod *= i;
+	return uint32_t(prod);
+}
+
+// double precision divide
+uint32_t b10(uint32_t n) {
+	double prod = 1;
+	for (double i = 0.999; n > 0; n--, i += 0.00001)
+		prod /= i;
+	return uint32_t(prod);
+}
+
+
+
 // sum the elements in the array
 uint64_t array1(const uint32_t x[], uint32_t n) {
 	uint64_t sum = 0;
@@ -246,16 +272,18 @@ int main() {
     to benchmark your loop functions, uncomment the code below                  
    */
 	
-   benchmark1("a1", a1, n);                                                  
-   benchmark1("a2", a2, n);                                                  
-	benchmark1("b1", b1, n);
-	benchmark1("b2", b2, n);
-	benchmark1("b3", b3, n);
-	benchmark1("b3b", b3b, n);
-	benchmark1("b4", b4, n);
-	benchmark1("b5", b5, n);
-	benchmark1("b6", b6, n);
-	benchmark1("b7", b7, n);
+    // benchmark1("a1", a1, n);                                                  
+    // benchmark1("a2", a2, n);                                                  
+	// benchmark1("b1", b1, n);
+	// benchmark1("b2", b2, n);
+	// benchmark1("b3", b3, n);
+	// benchmark1("b3b", b3b, n);
+	// benchmark1("b4", b4, n);
+	// benchmark1("b5", b5, n);
+	// benchmark1("b6", b6, n);
+	benchmark1("b8", b8, n);
+	benchmark1("b9", b9, n);
+	benchmark1("b10", b10, n);
 
 
 	// this is the size for array problems on the pi
@@ -264,10 +292,9 @@ int main() {
 	 // this should take enough time ( a couple of seconds)
 	// to get meaningful results on on the pi. You might need more on PC
 	const uint32_t numTrials = 100;
-	 benchmark2("readOneLocation", readOneLocation, narray, numTrials);              	 benchmark2("readArray", readArray, narray, numTrials);                         benchmark2("writeArray", writeArray, narray, numTrials);
-
-	benchmark2("array1", array1, narray, numTrials);
-	benchmark2("array2", array2, narray, numTrials);
+	//benchmark2("readOneLocation", readOneLocation, narray, numTrials);              	 benchmark2("readArray", readArray, narray, numTrials);                         benchmark2("writeArray", writeArray, narray, numTrials);
+	//benchmark2("array1", array1, narray, numTrials);
+	//benchmark2("array2", array2, narray, numTrials);
 
 	// YOU MUST COMPLETE array3, it is not finished!
 	//	benchmark2("array3", array3, narray, numTrials);

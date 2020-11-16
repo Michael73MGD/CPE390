@@ -8,3 +8,12 @@ No changes, without optimization:
 
 
 Now, after I made changes in GravSim.hh
+With optimization: 
+2.279 seconds
+
+Without optimization: 
+23.879 seconds
+
+
+Here's my updated GravSim.hh code: 
+

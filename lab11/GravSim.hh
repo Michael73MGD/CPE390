@@ -82,7 +82,7 @@ public:
 			 double vx, double vy, double vz) : m(m),
 			pos(x,y,z), v(vx, vy, vz), a() {
 		strncpy(this->name, name, 16);
-		this->m = G*m;
+		this->m = G*m;										//I'm overriding this.m with G*m since m alone is never needed
 	}
 	friend std::ostream& operator <<(std::ostream& s, const Body& b) {
 		return s << b.name << '\t' << b.pos << '\t' << b.v << '\t' << b.a;
@@ -90,14 +90,16 @@ public:
 	Vec3d gravAccel(const Body& b) {
 	        
 		Vec3d dpos = pos - b.pos;
-		double r = dpos.mag();
-		double r2 = dpos.magSquared();
+		//double r = dpos.mag();    //r isn't used anymore
+		double r2 = dpos.magSquared();			//this is r^2
 		//double amag = G * b.m * m/ (r*r)/m;       //m is in the numerator and the denominator
 		//double amag = G * b.m/ (r*r);				//This should be faster. Then, I added a magSquared function, so replacing r*r with r2
-		//double amag = G * b.m/ (r2);
-		double amag = b.m/r2;
+		//double amag = G * b.m/ (r2);				//Finally, replacing G*b.m with just b.m because of changes in the constructor
+		//double amag = b.m/r2;		//Below, we can just compute amagR directly, so amag isn't needed anymore
+		
 		//return Vec3d(dpos.x/r*amag, dpos.y/r*amag, dpos.z/r*amag);		//since amag/r is constant, let's compute it just once
-		double amagR = amag/r;
+		//double amagR = amag/r;		//this computes amagR, but we can do it without using amag at all:
+		double amagR = b.m/(r2*sqrt(r2));
 		return Vec3d(dpos.x*amagR, dpos.y*amagR, dpos.z*amagR);
 	}
 };

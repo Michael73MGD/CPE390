@@ -48,6 +48,9 @@ public:
 	double mag() const {
 		return sqrt(x*x + y*y + z*z);
 	}
+	double magSquared() const {
+		return x*x + y*y + z*z;
+	}
 	//hint: if you could write magsq() you would not have to square the magnitude
 	
 	friend std::ostream& operator <<(std::ostream& s, const Vec3d& v) {
@@ -77,7 +80,7 @@ public:
 			 double m,
 			 double x, double y, double z,
 			 double vx, double vy, double vz) : m(m),
-																					pos(x,y,z), v(vx, vy, vz), a() {
+			pos(x,y,z), v(vx, vy, vz), a() {
 		strncpy(this->name, name, 16);
 	}
 	friend std::ostream& operator <<(std::ostream& s, const Body& b) {
@@ -87,8 +90,13 @@ public:
 	        
 		Vec3d dpos = pos - b.pos;
 		double r = dpos.mag();
-		double amag = G * b.m * m/ (r*r)/m;
-		return Vec3d(dpos.x/r*amag, dpos.y/r*amag, dpos.z/r*amag);
+		double r2 = dpos.magSquared();
+		//double amag = G * b.m * m/ (r*r)/m;       //m is in the numerator and the denominator
+		//double amag = G * b.m/ (r*r);				//This should be faster. Then, I added a magSquared function, so replacing r*r with r2
+		double amag = G * b.m/ (r2);
+		//return Vec3d(dpos.x/r*amag, dpos.y/r*amag, dpos.z/r*amag);		//since amag/r is constant, let's compute it just once
+		double amagR = amag/r;
+		return Vec3d(dpos.x*amagR, dpos.y*amagR, dpos.z*amagR);
 	}
 };
 

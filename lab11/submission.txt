@@ -1,0 +1,10 @@
+All runs of the file are done on the Pi: 
+
+No changes, with optimization: 
+3.735 seconds
+
+No changes, without optimization: 
+25.6 seconds
+
+
+Now, after I made changes in GravSim.hh

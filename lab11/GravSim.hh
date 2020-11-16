@@ -77,7 +77,7 @@ public:
 	// precompute Gm
 	Body(const char name[16],
 			 const char orbits[16],
-			 double m,
+			 double Gm,
 			 double x, double y, double z,
 			 double vx, double vy, double vz) : m(m),
 			pos(x,y,z), v(vx, vy, vz), a() {
@@ -95,7 +95,7 @@ public:
 		//double amag = G * b.m * m/ (r*r)/m;       //m is in the numerator and the denominator
 		//double amag = G * b.m/ (r*r);				//This should be faster. Then, I added a magSquared function, so replacing r*r with r2
 		//double amag = G * b.m/ (r2);
-		double amag = b.Gm/r2;
+		double amag = b.m/r2;
 		//return Vec3d(dpos.x/r*amag, dpos.y/r*amag, dpos.z/r*amag);		//since amag/r is constant, let's compute it just once
 		double amagR = amag/r;
 		return Vec3d(dpos.x*amagR, dpos.y*amagR, dpos.z*amagR);

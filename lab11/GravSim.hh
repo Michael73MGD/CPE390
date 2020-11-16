@@ -77,12 +77,12 @@ public:
 	// precompute Gm
 	Body(const char name[16],
 			 const char orbits[16],
-			 double Gm,
+			 double m,
 			 double x, double y, double z,
 			 double vx, double vy, double vz) : m(m),
 			pos(x,y,z), v(vx, vy, vz), a() {
 		strncpy(this->name, name, 16);
-		this->Gm = G*m;
+		this->m = G*m;
 	}
 	friend std::ostream& operator <<(std::ostream& s, const Body& b) {
 		return s << b.name << '\t' << b.pos << '\t' << b.v << '\t' << b.a;

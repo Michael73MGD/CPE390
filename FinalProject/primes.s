@@ -6,18 +6,22 @@ _Z12eratosthenesPjjj:
 	push {r4-r8}
 	mov r3, #1		@Number of primes, to be returned, setting at 1 because assuming 2 is prime
 	@Now looping through "array" and setting all bits to true
-		@mov r4, r1			@copy of address 
-		@ldr r5, =0xFFFFFFFF		@32 bits of all 1s
-		@mov r6, r2			@copy of size, number of ints (number of 32 bit sections)
+		mov r4, r0			@copy of address 
+		ldr r5, =0xFFFFFFFF		@32 bits of all 1s
+		mov r6, r2			@copy of size, number of ints (number of 32 bit sections)
 1:
-		@str r5, [r4]			@store all 1s in this section of the array
-		@add r4, #4			@increment address by 4 bytes, 32 bits
-		@subs r6, #1			@Lower copy of size by one int (32 bits)
-		@bgt 1b				@loop until size is at or below 0
+		str r5, [r4]			@store all 1s in this section of the array
+		add r4, #4			@increment address by 4 bytes, 32 bits
+		subs r6, #1			@Lower copy of size by one int (32 bits)
+		add r3, #1 	@just for fun, it's corrent, loops 15625000 times 
+		bgt 1b				@loop until size is at or below 0
 	@out of loop, all bits are set to true
 	
+
+
+
 	
 	
-	mov r3, r0
+	mov r0, r3
 	pop {r4-r8}
 	bx lr

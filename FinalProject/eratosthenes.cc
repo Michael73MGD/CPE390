@@ -18,6 +18,8 @@ void clear(uint32_t bits[], uint32_t pos) {
 	bits[ pos >> 5 ]  &= ~(1 << (pos & 31 ) ) ; // on ARM use BIC (no NOT)
 }
 
+uint32_t eratosthenes(uint32_t isPrime[], uint32_t n, uint32_t size) {
+}
 
 uint32_t eratosthenes2(bool isPrime[], uint32_t n) {
   uint32_t primeCount = 1; // special case: 2 is prime

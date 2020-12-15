@@ -16,7 +16,16 @@ _Z12eratosthenesPjjj:
 		add r3, #1 	@just for fun, it's corrent, loops 15625000 times 
 		bgt 1b				@loop until size is at or below 0
 	@out of loop, all bits are set to true
-	
+	@can write over r4, r5, r6
+	mov r4, #31622		@sqrt(1 billion), I think it's faster to assume then to calculate each time
+	@Now looping from 3 to n, only odds
+		mov r5, #3		@current number that we're testing
+2:
+		@something something
+		add r5, #2
+		cmp r5, r1
+		blt 2b			@I think this will seg fault on the second to last number
+			
 
 
 

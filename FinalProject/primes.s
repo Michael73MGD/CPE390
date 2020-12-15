@@ -1,5 +1,5 @@
-.global main
-main:
+.global _Z12eratosthenesPjjj
+_Z12eratosthenesPjjj:
 	@Given p, uint32 array of size (n+1+31)/32/2 in location r0
 	@Given n, number of integers to count primes for, in r1
 	@Given size, number of bits in p, in r2

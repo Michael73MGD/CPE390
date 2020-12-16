@@ -35,7 +35,7 @@ _Z12eratosthenesPjj:
 		cmp r8, #0		@compare that bit with #0. If it's 0, then the bit was 0, otherwise the bit was 1
 		bne 3f			@if this number was set to true, branch ahead
 4:
-		add r6, #1
+		add r6, #1		@increment bit position by 1
 		add r5, #2		@increment by 2 (odds only)
 		cmp r5, r1		@compare current to n (1 billion)
 		ble 2b			@loop unless larger than n
@@ -49,19 +49,18 @@ _Z12eratosthenesPjj:
 	mul r7, r5, r5		@r7 starts at the prime number squared
 	add r8, r5, r5		@r8 is twice the prime number	
 5:
-		add r7, r8		@r7 increments by twice the prime number
-		sub r9, r7, #3		@to get the bit location of r7, do (r7-3)/2
-		lsr r9, #1		@divide by 2
-		@isPrime[r9] = false
-		lsr r10, r9, #5		@divide bit position by 32 to get the int position
+		add r7, r8		@r7 increments by twice the prime number		
+		lsr r10, r6, #5		@divide bit position by 32 to get the int position
 		add r10, r10, r0	@get pointer by adding int position to r0
-		ldr r10, [r10]		@get value at pointer, store in r10 because it isn't needed anymore
+		@ldr r?, [r10]		@get value at pointer ---no more registers, do it later
 		
-		and r9, #31		@position mod 32 is the same as AND #31, r9 isn't needed anymore so store there
+		and r9, r6, #31		@position mod 32 is the same as AND #31, r9 isn't needed anymore so store there
 		mov r11, #1		@temp storage for the number 1
 		lsl r11, r9		@shift that 1 over to the location of the targe
-		bic r10, r11		@Bit clear that location, setting it to 0
 		
+		ldr r9, [r10]		@ran out of registers above, but can use r9 now
+		bic r9, r11		@Bit clear that location, setting it to 0
+		str r9, [r10]		@store updated int back in r10
 		cmp r7, r1		@compare current to n
 		ble 5b			@loop until larger than n
 	b 4b			@return to the outer loop

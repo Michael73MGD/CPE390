@@ -21,7 +21,8 @@ _Z12eratosthenesPjjj:
 	ldr r4, =#31622		@sqrt(1 billion), I think it's faster to assume then to calculate each time
 	mov r5, #3		@current number that we're testing		
 2:
-		ldrb r6, [r0],#1	@load r6 with the bit representing the first number, and postincrement it by one bit
+		ldrb r6, [r0]@,#1	@load r6 with the bit representing the first number, and postincrement it by one bit
+		
 		cmp r6, #1		@compare that bit with #1
 		beq 3f			@if this number was set to true, branch ahead
 4:

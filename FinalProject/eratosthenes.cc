@@ -18,7 +18,7 @@ void clear(uint32_t bits[], uint32_t pos) {
 	bits[ pos >> 5 ]  &= ~(1 << (pos & 31 ) ) ; // on ARM use BIC (no NOT)
 }
 
-uint32_t eratosthenes(uint32_t isPrime[], uint32_t n, uint32_t size);
+uint32_t eratosthenes(uint32_t isPrime[], uint32_t n);
 
 uint32_t eratosthenes2(bool isPrime[], uint32_t n) {
   uint32_t primeCount = 1; // special case: 2 is prime
@@ -47,6 +47,6 @@ int main() {
   const uint32_t size = (n+1 + 31  ) / 32 / 2;
   //cout<<"Size: "<<size<<"\n";
   uint32_t* p = new uint32_t[size];
-  cout << eratosthenes(p, n, size) << '\n';
+  cout << eratosthenes(p, n) << '\n';
   delete [] p;
 }

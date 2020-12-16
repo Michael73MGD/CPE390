@@ -1,9 +1,12 @@
-.global _Z12eratosthenesPjjj
-_Z12eratosthenesPjjj:
+.global _Z12eratosthenesPjj
+_Z12eratosthenesPjj:
 	@Given p, uint32 array of size (n+1+31)/32/2 in location r0
 	@Given n, number of integers to count primes for, in r1
-	@Given size, number of ints (each 32 bits) in p, in r2
-	push {r4-r8}
+	@need size, number of ints (each 32 bits) in p, in r2
+	add r2, r1, #32		@getting size: (n+1+31)/32/2, or n+32 \/
+	lsr r2, #6		@getting size, (n+32)/64 with a logical shift right
+	
+	push {r4-r11}
 	mov r3, #1		@Number of primes, to be returned, setting at 1 because assuming 2 is prime
 	@Now looping through "array" and setting all bits to true
 	mov r4, r0			@copy of address 
@@ -20,12 +23,19 @@ _Z12eratosthenesPjjj:
 	@Now looping from 3 to n, only odds	
 	ldr r4, =#31622		@sqrt(1 billion), I think it's faster to assume then to calculate each time
 	mov r5, #3		@current number that we're testing		
+	mov r6, #0		@our bit position 
 2:
-		ldrb r6, [r0]@,#1	@load r6 with the bit representing the first number, and postincrement it by one bit
-		
-		cmp r6, #1		@compare that bit with #1
-		beq 3f			@if this number was set to true, branch ahead
+		lsr r8, r6, #5		@Divide bit position by 32 to get the 32-bit iterator we're at
+		add r8, r8, r0		@Make r8 the new pointer, which is r0 incremented by r8
+		ldr r8, [r8]		@Load value at location r8, store it in r8
+		and r9, r6, #31		@and the bit position with 31 to do: position mod 32
+		mov r10, #1		@temporarily store #1 in r10 for shifting
+		lsl r10, r9		@Shift #1 over to the left by r9 units
+		and r8, r10		@and the 32-bit number with the #1 in the proper place to select the bit we need
+		cmp r8, #0		@compare that bit with #0. If it's 0, then the bit was 0, otherwise the bit was 1
+		bne 3f			@if this number was set to true, branch ahead
 4:
+		add r6, #1
 		add r5, #2		@increment by 2 (odds only)
 		cmp r5, r1		@compare current to n (1 billion)
 		ble 2b			@loop unless larger than n
@@ -40,7 +50,18 @@ _Z12eratosthenesPjjj:
 	add r8, r5, r5		@r8 is twice the prime number	
 5:
 		add r7, r8		@r7 increments by twice the prime number
-		@isPrime[r7] = false
+		sub r9, r7, #3		@to get the bit location of r7, do (r7-3)/2
+		lsr r9, #1		@divide by 2
+		@isPrime[r9] = false
+		lsr r10, r9, #5		@divide bit position by 32 to get the int position
+		add r10, r10, r0	@get pointer by adding int position to r0
+		ldr r10, [r10]		@get value at pointer, store in r10 because it isn't needed anymore
+		
+		and r9, #31		@position mod 32 is the same as AND #31, r9 isn't needed anymore so store there
+		mov r11, #1		@temp storage for the number 1
+		lsl r11, r9		@shift that 1 over to the location of the targe
+		bic r10, r11		@Bit clear that location, setting it to 0
+		
 		cmp r7, r1		@compare current to n
 		ble 5b			@loop until larger than n
 	b 4b			@return to the outer loop

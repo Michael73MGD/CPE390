@@ -44,6 +44,7 @@ uint32_t eratosthenes2(bool isPrime[], uint32_t n) {
 //                      x                      x                        x          
 int main() {
   uint32_t n = 1000000000;  //1 billion
+  //n = 32;
   const uint32_t size = (n+1 + 31  ) / 32 / 2;
   //cout<<"Size: "<<size<<"\n";
   uint32_t* p = new uint32_t[size];

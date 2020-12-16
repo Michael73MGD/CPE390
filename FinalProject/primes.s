@@ -29,8 +29,10 @@ _Z12eratosthenesPjj:
 		add r8, r8, r0		@Make r8 the new pointer, which is r0 incremented by r8
 		ldr r8, [r8]		@Load value at location r8, store it in r8
 		and r9, r6, #31		@and the bit position with 31 to do: position mod 32
-		mov r10, #1		@temporarily store #1 in r10 for shifting
-		lsl r10, r9		@Shift #1 over to the left by r9 units
+		@mov r10, #1		@temporarily store #1 in r10 for shifting
+		ldr r10, =#65536		@my weird method
+	@this was lsl
+		lsr r10, r9		@Shift #1 over to the left by r9 units
 		and r8, r10		@and the 32-bit number with the #1 in the proper place to select the bit we need
 		cmp r8, #0		@compare that bit with #0. If it's 0, then the bit was 0, otherwise the bit was 1
 		bne 3f			@if this number was set to true, branch ahead
@@ -55,8 +57,10 @@ _Z12eratosthenesPjj:
 		@ldr r?, [r10]		@get value at pointer ---no more registers, do it later
 		
 		and r9, r6, #31		@position mod 32 is the same as AND #31, r9 isn't needed anymore so store there
-		mov r11, #1		@temp storage for the number 1
-		lsl r11, r9		@shift that 1 over to the location of the targe
+		@mov r11, #1		@temp storage for the number 1
+		ldr r11, =#65536		@weird theory
+	@this was lsl
+		lsr r11, r9		@shift that 1 over to the location of the targe
 		
 		ldr r9, [r10]		@ran out of registers above, but can use r9 now
 		bic r9, r11		@Bit clear that location, setting it to 0
@@ -67,5 +71,5 @@ _Z12eratosthenesPjj:
 	
 6:
 	mov r0, r3
-	pop {r4-r8}
+	pop {r4-r11}
 	bx lr
